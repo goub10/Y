@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معلومات الجهاز</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e9ecef; /* خلفية بلون فاتح */
+            color: #333;
+            text-align: center;
+            padding: 50px;
+            margin: 0; /* إزالة الهوامش الافتراضية */
+        }
+        h1 {
+            font-size: 32px; /* حجم خط العنوان الرئيسي */
+            color: #007bff; /* لون أزرق */
+            margin-bottom: 30px; /* مساحة تحت العنوان */
+        }
+        #device-info {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            display: inline-block; /* لجعل العنصر يأخذ المحتوى فقط */
+            transition: transform 0.2s; /* تأثير الحركة عند التمرير */
+        }
+        #device-info:hover {
+            transform: scale(1.02); /* تكبير طفيف عند التمرير */
+        }
+        h2 {
+            font-size: 24px; /* حجم خط العنوان */
+            color: #28a745; /* لون أخضر */
+            margin-bottom: 10px; /* مساحة تحت العنوان */
+        }
+        p {
+            font-size: 20px; /* حجم خط المعلومات */
+            line-height: 1.6; /* ارتفاع السطر */
+            margin: 5px 0; /* هوامش بين الفقرات */
+        }
+    </style>
+    <script>
+        function detectDevice() {
+            var userAgent = navigator.userAgent;
+            var deviceName = "غير معروف";
+            var deviceModel = "غير معروف";
+            var os = "غير معروف";
+
+            // تحديد نظام التشغيل بناءً على الـ User-Agent
+            if (/android/i.test(userAgent)) {
+                os = "Android";
+                var match = userAgent.match(/Android.*; ([^;]+) Build/);
+                if (match) {
+                    deviceName = match[1].split(' ')[0];  // على سبيل المثال "Samsung"
+                    deviceModel = match[1];  // على سبيل المثال "Samsung Galaxy S21"
+                }
+            } else if (/iPhone/i.test(userAgent)) {
+                os = "iOS";
+                deviceName = "Apple";
+                deviceModel = "iPhone";  // لا يعرض الـ User-Agent موديلات iPhone الدقيقة
+            } else if (/iPad/i.test(userAgent)) {
+                os = "iOS";
+                deviceName = "Apple";
+                deviceModel = "iPad";
+            } else if (/iPod/i.test(userAgent)) {
+                os = "iOS";
+                deviceName = "Apple";
+                deviceModel = "iPod";
+            } else if (/Windows/i.test(userAgent)) {
+                os = "Windows";
+                deviceName = "Windows";
+                deviceModel = "غير معروف";
+            } else if (/Mac/i.test(userAgent)) {
+                os = "Mac OS";
+                deviceName = "Apple";
+                deviceModel = "غير معروف";
+            } else if (/Linux/i.test(userAgent)) {
+                os = "Linux";
+                deviceName = "Linux";
+                deviceModel = "غير معروف";
+            }
+
+            document.getElementById("device-info").innerHTML = 
+                `<h2>${deviceName}</h2>` +  // إضافة اسم الجهاز كعنوان فرعي
+                `<p>موديل الجهاز: ${deviceModel}</p>` +  // إضافة موديل الجهاز
+                `<p>نظام التشغيل: ${os}</p>`;  // إضافة نظام التشغيل
+        }
+    </script>
+</head>
+<body onload="detectDevice()">
+    <h1>معلومات الجهاز</h1> <!-- عنوان الصفحة الرئيسي -->
+    <div id="device-info"></div> <!-- معلومات الجهاز -->
+</body>
+</html>
